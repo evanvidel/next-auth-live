@@ -9,24 +9,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+//my schema
+model Post {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  content   String
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+}
+
+
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
+
 
 model Session {
   id           String   @id @default(cuid())
@@ -44,6 +55,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Post          Post[]
 }
 
 model VerificationToken {

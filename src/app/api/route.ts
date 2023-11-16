@@ -1,12 +1,7 @@
+import client from "../../../prisma/client";
+
 export async function GET(request: Request) {
-    return new Response('Hello, next.js!')
-}
-export async function POST(request: Request) {
-    return new Response('Hello, next.js!')
-}
-export async function PUT(request: Request) {
-    return new Response('Hello, next.js!')
-}
-export async function DELETE(request: Request) {
-    return new Response('Hello, next.js!')
+  const allPosts = await client.user.findMany();
+
+  return new Response(JSON.stringify(allPosts));
 }
