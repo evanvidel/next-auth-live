@@ -10,7 +10,7 @@ async function getPosts() {
   }
   return res.json();
 }
-
+  
 export default  async function Home() {
   const data = await getPosts()
   return <main className="mx-2 py-2">

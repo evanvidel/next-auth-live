@@ -5,8 +5,8 @@ export default function Posts({ data }: any) {
 
   return (
     <ul>
-      {data.map((post:any) => (
-        <li className="m-2 border border-yellow-700 rounded-md ">
+      {data?.map((post:any) => (
+        <li className="m-2 border border-yellow-700 rounded-md p-2">
           key={post.id}
           {post.content}
         </li>
